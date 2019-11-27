@@ -1,14 +1,44 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+     issue Demo
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <ion-row class="ion-align-items-stretch" #postList>
+    <ion-col size="12" size-md="6" *ngFor="let post of posts" [hidden]="post.hide">
+      <!-- post item -->
+      <ion-item-sliding #slidingItem>
+        <div>
+          <ion-item detail lines="inset" routerLink="/single-post/{{post.id}}">
+            <ion-text>
+              <h4 class="devotion-topic">
+                {{post.title}}
+              </h4>
+              <p class="devotion-date">
+                {{post.dateCreated | date}}
+                <!-- {{post.date}}  -->
+              </p>
+              <p class="devotion-excerpt">
+                {{post.excerpt}}
+              </p>
+            </ion-text>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option (click)="addpost(slidingItem, post)">
+              Favorite
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="removePost(slidingItem, post, 'Remove Favorite')"
+            >
+              Remove
+            </ion-item-option>
+          </ion-item-options>
+        </div>
+      </ion-item-sliding>
+    </ion-col>
+  </ion-row>
   </div>
 </ion-content>
